@@ -1,0 +1,26 @@
+{
+    "appKeys": {
+        "ASTEROID_COUNT": 0
+    },
+    "capabilities": [
+        "configurable"
+    ],
+    "companyName": "SpaceRocks",
+    "longName": "AsteroidToday WatchFace",
+    "projectType": "native",
+    "resources": {
+        "media": []
+    },
+    "sdkVersion": "3",
+    "shortName": "AsteroidToday",
+    "targetPlatforms": [
+        "aplite",
+        "basalt",
+        "chalk"
+    ],
+    "uuid": "7be49737-1b56-4660-8cb3-55a7a466114d",
+    "versionLabel": "1.0",
+    "watchapp": {
+        "watchface": true
+    }
+}
