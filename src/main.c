@@ -73,8 +73,8 @@ static void main_window_load(Window *window) {
   s_asteroid_today_layer = text_layer_create(GRect(0, PBL_IF_ROUND_ELSE(125, 120), bounds.size.w, 25));
   text_layer_set_background_color(s_asteroid_today_layer, GColorClear);
   text_layer_set_text_color(s_asteroid_today_layer, GColorBlack);
+  // text_layer_set_text(s_asteroid_today_layer, "Loading...");
   text_layer_set_text_alignment(s_asteroid_today_layer, GTextAlignmentCenter);
-  text_layer_set_text(s_asteroid_today_layer, "Loading Asteroid Count");
   
   text_layer_set_font(s_asteroid_today_layer, fonts_get_system_font(FONT_KEY_LECO_20_BOLD_NUMBERS));
   // layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_asteroid_today_layer));
