@@ -3,7 +3,6 @@
 
 static Window *s_main_window;
 static TextLayer *s_time_layer;
-static TextLayer *s_asteroid_title_layer;
 static TextLayer *s_asteroid_today_layer;
 
 static void update_time() {
@@ -35,8 +34,7 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
               sizeof(asteroid_buffer),
               "%d",
                (int)temp_tuple->value->int32);
-     APP_LOG(APP_LOG_LEVEL_ERROR, "Message FOUND inbox_received_callback!");
-     APP_LOG(APP_LOG_LEVEL_INFO, "KEY_DATA received with value %d", (int)temp_tuple->value->int32);
+     APP_LOG(APP_LOG_LEVEL_INFO, "data received with value %d", (int)temp_tuple->value->int32);
   }
   text_layer_set_text(s_asteroid_today_layer, asteroid_buffer);
 }
@@ -82,11 +80,11 @@ static void main_window_load(Window *window) {
   // layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_asteroid_today_layer));
   layer_add_child(window_layer, text_layer_get_layer(s_asteroid_today_layer));
 }
+
 static void main_window_unload(Window *window) {
   text_layer_destroy(s_time_layer);
   text_layer_destroy(s_asteroid_today_layer);
 }
-
 
 static void init() {
   // Create main Window element and assign to pointer
@@ -115,7 +113,6 @@ static void init() {
   // Open AppMessage
   app_message_open(app_message_inbox_size_maximum(), app_message_outbox_size_maximum());
 }
-
 
 static void deinit() {
   // Destroy Window
