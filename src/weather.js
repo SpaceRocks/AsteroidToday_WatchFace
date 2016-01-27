@@ -31,10 +31,14 @@ function locationSuccess(pos) {
       var conditions = json.weather[0].main;      
       console.log("Conditions are " + conditions);
       
+      // Cloudiness
+      var cloudiness = json.clouds.all;
+      
       // Assemble dictionary using our keys
       var dictionary = {
         "KEY_TEMPERATURE": temperature,
-        "KEY_CONDITIONS": conditions
+        "KEY_CONDITIONS": conditions,
+        "KEY_CLOUDINESS": cloudiness
       };
 
       // Send to Pebble

@@ -1,6 +1,7 @@
 {
     "appKeys": {
         "ASTEROID_COUNT": 0,
+        "KEY_CLOUDINESS": 3,
         "KEY_CONDITIONS": 2,
         "KEY_TEMPERATURE": 1
     },
@@ -13,8 +14,8 @@
     "resources": {
         "media": [
             {
-                "file": "images/moon_phase_test",
-                "name": "MOON",
+                "file": "images/MOON_SMALL.png",
+                "name": "IMAGE_MOON_FULL",
                 "targetPlatforms": [
                     "aplite",
                     "basalt",
