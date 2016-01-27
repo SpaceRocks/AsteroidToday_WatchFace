@@ -1,6 +1,8 @@
 {
     "appKeys": {
-        "ASTEROID_COUNT": 0
+        "ASTEROID_COUNT": 0,
+        "KEY_CONDITIONS": 2,
+        "KEY_TEMPERATURE": 1
     },
     "capabilities": [
         "configurable"
@@ -9,7 +11,18 @@
     "longName": "AsteroidToday WatchFace",
     "projectType": "native",
     "resources": {
-        "media": []
+        "media": [
+            {
+                "file": "images/moon_phase_test",
+                "name": "MOON",
+                "targetPlatforms": [
+                    "aplite",
+                    "basalt",
+                    "chalk"
+                ],
+                "type": "bitmap"
+            }
+        ]
     },
     "sdkVersion": "3",
     "shortName": "AsteroidToday",
