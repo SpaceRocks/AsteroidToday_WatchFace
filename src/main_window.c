@@ -9,16 +9,15 @@
 // BEGIN AUTO-GENERATED UI CODE; DO NOT MODIFY
 static Window *s_window;
 static GFont s_res_roboto_bold_subset_49;
-static GFont s_res_gothic_18_bold;
-static GFont s_res_gothic_14;
 static GFont s_res_gothic_24_bold;
+static GFont s_res_gothic_14;
+static GFont s_res_gothic_18_bold;
 static TextLayer *s_timelayer_main;
 static TextLayer *s_asteroidlayer_main;
 static TextLayer *s_asteroidlabel_1;
 static TextLayer *s_weather_main;
 static TextLayer *s_cloudLabel_2;
 static TextLayer *s_cloudyness_main;
-static TextLayer *s_cloudyLabel_1;
 static BitmapLayer *moon_image_layer;
 
 static void initialise_ui(void) {
@@ -28,9 +27,9 @@ static void initialise_ui(void) {
   #endif
   
   s_res_roboto_bold_subset_49 = fonts_get_system_font(FONT_KEY_ROBOTO_BOLD_SUBSET_49);
-  s_res_gothic_18_bold = fonts_get_system_font(FONT_KEY_GOTHIC_18_BOLD);
-  s_res_gothic_14 = fonts_get_system_font(FONT_KEY_GOTHIC_14);
   s_res_gothic_24_bold = fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD);
+  s_res_gothic_14 = fonts_get_system_font(FONT_KEY_GOTHIC_14);
+  s_res_gothic_18_bold = fonts_get_system_font(FONT_KEY_GOTHIC_18_BOLD);
   // s_timelayer_main
   s_timelayer_main = text_layer_create(GRect(3, 46, 139, 54));
   text_layer_set_text(s_timelayer_main, "00:00");
@@ -39,7 +38,7 @@ static void initialise_ui(void) {
   layer_add_child(window_get_root_layer(s_window), (Layer *)s_timelayer_main);
   
   // s_asteroidlayer_main
-  s_asteroidlayer_main = text_layer_create(GRect(23, 119, 29, 24));
+  s_asteroidlayer_main = text_layer_create(GRect(23, 119, 29, 28));
   text_layer_set_text(s_asteroidlayer_main, "-");
   text_layer_set_text_alignment(s_asteroidlayer_main, GTextAlignmentCenter);
   text_layer_set_font(s_asteroidlayer_main, s_res_gothic_24_bold);
@@ -59,23 +58,17 @@ static void initialise_ui(void) {
   layer_add_child(window_get_root_layer(s_window), (Layer *)s_weather_main);
   
   // s_cloudLabel_2
-  s_cloudLabel_2 = text_layer_create(GRect(93, 26, 42, 19));
-  text_layer_set_text(s_cloudLabel_2, "Cloudy");
+  s_cloudLabel_2 = text_layer_create(GRect(71, 26, 65, 19));
+  text_layer_set_text(s_cloudLabel_2, "-");
   text_layer_set_text_alignment(s_cloudLabel_2, GTextAlignmentCenter);
   layer_add_child(window_get_root_layer(s_window), (Layer *)s_cloudLabel_2);
   
   // s_cloudyness_main
-  s_cloudyness_main = text_layer_create(GRect(58, 26, 20, 18));
+  s_cloudyness_main = text_layer_create(GRect(51, 26, 20, 19));
   text_layer_set_text(s_cloudyness_main, "-");
   text_layer_set_text_alignment(s_cloudyness_main, GTextAlignmentCenter);
   text_layer_set_font(s_cloudyness_main, s_res_gothic_18_bold);
   layer_add_child(window_get_root_layer(s_window), (Layer *)s_cloudyness_main);
-  
-  // s_cloudyLabel_1
-  s_cloudyLabel_1 = text_layer_create(GRect(76, 26, 15, 18));
-  text_layer_set_text(s_cloudyLabel_1, "%");
-  text_layer_set_text_alignment(s_cloudyLabel_1, GTextAlignmentRight);
-  layer_add_child(window_get_root_layer(s_window), (Layer *)s_cloudyLabel_1);
   
   // moon_image_layer
   moon_image_layer = bitmap_layer_create(GRect(84, 101, 50, 49));
@@ -90,7 +83,6 @@ static void destroy_ui(void) {
   text_layer_destroy(s_weather_main);
   text_layer_destroy(s_cloudLabel_2);
   text_layer_destroy(s_cloudyness_main);
-  text_layer_destroy(s_cloudyLabel_1);
   bitmap_layer_destroy(moon_image_layer);
 }
 // END AUTO-GENERATED UI CODE
@@ -151,6 +143,7 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
                (int)cloudy_tuple->value->int32);
   }
   text_layer_set_text(s_cloudyness_main, cloudy_buffer);
+  text_layer_set_text(s_cloudLabel_2, "% Cloudy");
 }
 
 static void inbox_dropped_callback(AppMessageResult reason, void *context) {
@@ -172,6 +165,13 @@ static void handle_window_unload(Window* window) {
 
 void show_main_window(void) {
   initialise_ui();
+
+  // Clean ui
+  text_layer_set_text(s_weather_main, "");
+  text_layer_set_text(s_cloudyness_main, "");
+  text_layer_set_text(s_cloudLabel_2, "");
+  text_layer_set_text(s_asteroidlayer_main, "");
+  
   window_set_window_handlers(s_window, (WindowHandlers) {
     .unload = handle_window_unload,
   });
@@ -186,11 +186,11 @@ void show_main_window(void) {
   app_message_register_outbox_failed(outbox_failed_callback);
   app_message_register_outbox_sent(outbox_sent_callback);
   app_message_open(app_message_inbox_size_maximum(), app_message_outbox_size_maximum());
-  
+
   s_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_MOON_FULL);
   bitmap_layer_set_bitmap(moon_image_layer, s_bitmap);
-
 }
+
 void hide_main_window(void) {
   window_stack_remove(s_window, true);
 }
