@@ -1,10 +1,10 @@
 #include <pebble.h>
 #include "main_window.h"
 
-#define ASTEROID_COUNT 0
+#define ASTEROID_COUNT  0
 #define KEY_TEMPERATURE 1
-#define KEY_CONDITIONS 2
-#define KEY_CLOUDINESS 3
+#define KEY_CONDITIONS  2
+#define KEY_CLOUDINESS  3
 
 // BEGIN AUTO-GENERATED UI CODE; DO NOT MODIFY
 static Window *s_window;
@@ -23,7 +23,7 @@ static BitmapLayer *moon_image_layer;
 static void initialise_ui(void) {
   s_window = window_create();
   #ifndef PBL_SDK_3
-    window_set_fullscreen(s_window, 1);
+    window_set_fullscreen(s_window, true);
   #endif
   
   s_res_roboto_bold_subset_49 = fonts_get_system_font(FONT_KEY_ROBOTO_BOLD_SUBSET_49);
@@ -66,12 +66,13 @@ static void initialise_ui(void) {
   // s_cloudyness_main
   s_cloudyness_main = text_layer_create(GRect(51, 26, 20, 19));
   text_layer_set_text(s_cloudyness_main, "-");
-  text_layer_set_text_alignment(s_cloudyness_main, GTextAlignmentCenter);
+  text_layer_set_text_alignment(s_cloudyness_main, GTextAlignmentRight);
   text_layer_set_font(s_cloudyness_main, s_res_gothic_18_bold);
   layer_add_child(window_get_root_layer(s_window), (Layer *)s_cloudyness_main);
   
   // moon_image_layer
-  moon_image_layer = bitmap_layer_create(GRect(84, 101, 50, 49));
+  moon_image_layer = bitmap_layer_create(GRect(88, 109, 50, 50));
+  bitmap_layer_set_background_color(moon_image_layer, GColorBlack);
   layer_add_child(window_get_root_layer(s_window), (Layer *)moon_image_layer);
 }
 
@@ -108,7 +109,7 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
 }
 
 static void inbox_received_callback(DictionaryIterator *iterator, void *context) {
-  static char asteroid_buffer[32];
+  static char asteroid_buffer[32];  
   static char temperature_buffer[8];
   static char conditions_buffer[32];
   static char weather_layer_buffer[32];
@@ -123,7 +124,8 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
      APP_LOG(APP_LOG_LEVEL_INFO, "data received with value %d", (int)asteroid_tuple->value->int32);
   }
   text_layer_set_text(s_asteroidlayer_main, asteroid_buffer);
-
+  
+  
   Tuple *temp_tuple = dict_find(iterator, KEY_TEMPERATURE);
   Tuple *conditions_tuple = dict_find(iterator, KEY_CONDITIONS);
   if(temp_tuple && conditions_tuple) {
@@ -165,7 +167,7 @@ static void handle_window_unload(Window* window) {
 
 void show_main_window(void) {
   initialise_ui();
-
+  
   // Clean ui
   text_layer_set_text(s_weather_main, "");
   text_layer_set_text(s_cloudyness_main, "");
@@ -187,13 +189,22 @@ void show_main_window(void) {
   app_message_register_outbox_sent(outbox_sent_callback);
   app_message_open(app_message_inbox_size_maximum(), app_message_outbox_size_maximum());
 
-  s_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_MOON_FULL);
+  // s_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_MOON_FULL);
+  // s_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_MOON_FIRST_QUARTER);
+  // s_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_MOON_LAST_QUARTER);  
+  // s_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_MOON_WAXING_CRESCENT);
+  // s_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_MOON_WANING_CRESCENT);  
+  // s_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_MOON_WAXING_GIBBOUS);
+  s_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_MOON_WANING_GIBBOUS);
+  
   bitmap_layer_set_bitmap(moon_image_layer, s_bitmap);
 }
 
 void hide_main_window(void) {
   window_stack_remove(s_window, true);
 }
+
+
 
 int main(void) {
   show_main_window();

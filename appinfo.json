@@ -14,7 +14,43 @@
     "resources": {
         "media": [
             {
-                "file": "images/MOON_SMALL.png",
+                "file": "images/MOON_WANING_GIBBOUS",
+                "name": "IMAGE_MOON_WANING_GIBBOUS",
+                "targetPlatforms": null,
+                "type": "bitmap"
+            },
+            {
+                "file": "images/MOON_LAST_QUARTER",
+                "name": "IMAGE_MOON_LAST_QUARTER",
+                "targetPlatforms": null,
+                "type": "bitmap"
+            },
+            {
+                "file": "images/MOON_FIRST_QUARTER",
+                "name": "IMAGE_MOON_FIRST_QUARTER",
+                "targetPlatforms": null,
+                "type": "bitmap"
+            },
+            {
+                "file": "images/MOON_WAXING_GIBBOUS",
+                "name": "IMAGE_MOON_WAXING_GIBBOUS",
+                "targetPlatforms": null,
+                "type": "bitmap"
+            },
+            {
+                "file": "images/MOON_WANNING_CRESCENT",
+                "name": "IMAGE_MOON_WANNING_CRESCENT",
+                "targetPlatforms": null,
+                "type": "bitmap"
+            },
+            {
+                "file": "images/MOON_WAXING_CRESCENT",
+                "name": "IMAGE_MOON_WAXING_CRESCENT",
+                "targetPlatforms": null,
+                "type": "bitmap"
+            },
+            {
+                "file": "images/MOON_FULL.png",
                 "name": "IMAGE_MOON_FULL",
                 "targetPlatforms": [
                     "aplite",
